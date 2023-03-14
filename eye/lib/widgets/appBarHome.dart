@@ -53,7 +53,7 @@ AppBar appBarHome({required String title, required BuildContext context}) {
           context,
           screen: const profile(),
           withNavBar: false,
-          pageTransitionAnimation: PageTransitionAnimation.slideUp,
+          pageTransitionAnimation: PageTransitionAnimation.slideRight,
         );
       },
     ),
