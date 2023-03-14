@@ -34,7 +34,8 @@ class _findFormState extends State<findForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBar(context: context, title: 'وجدت شخص'),
+        appBar: appBar(
+            context: context, title: 'وجدت شخص', icon: Icons.close_rounded),
         body: Form(
           key: _formKey,
           child: ListView(

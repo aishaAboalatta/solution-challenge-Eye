@@ -1,4 +1,6 @@
+import 'package:eye/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../constants/colors.dart';
 
 AppBar appBarHome({required String title, required BuildContext context}) {
@@ -46,7 +48,14 @@ AppBar appBarHome({required String title, required BuildContext context}) {
         color: white,
         size: 40.0,
       ),
-      onPressed: () {},
+      onPressed: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: const profile(),
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.slideUp,
+        );
+      },
     ),
     backgroundColor: primaryDarkGrean,
     shadowColor: primaryDarkGrean,

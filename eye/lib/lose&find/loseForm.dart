@@ -34,7 +34,8 @@ class _loseFormState extends State<loseForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBar(context: context, title: 'فقدت شخص'),
+        appBar: appBar(
+            context: context, title: 'فقدت شخص', icon: Icons.close_rounded),
         body: Form(
           key: _formKey,
           child: ListView(

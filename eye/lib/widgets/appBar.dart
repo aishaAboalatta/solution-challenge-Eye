@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
-AppBar appBar({
-  required String title,
-  required BuildContext context,
-}) {
+AppBar appBar(
+    {required String title,
+    required BuildContext context,
+    required IconData icon}) {
   return AppBar(
     title: Text(
       title,
@@ -17,8 +17,8 @@ AppBar appBar({
     ),
     leading: IconButton(
       padding: const EdgeInsets.only(right: 20),
-      icon: const Icon(
-        Icons.close_rounded,
+      icon: Icon(
+        icon,
         color: white,
         size: 30.0,
       ),
