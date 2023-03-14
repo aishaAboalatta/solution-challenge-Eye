@@ -62,7 +62,7 @@ class _SplashState extends State<Splash> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              "assets/logo.png",
+              "assets/logo2.png",
             ),
           ),
           Align(
