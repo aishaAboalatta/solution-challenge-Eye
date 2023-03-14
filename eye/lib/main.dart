@@ -1,3 +1,4 @@
+import 'package:eye/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       //theme: ThemeData(fontFamily: 'Lateef'),
       initialRoute: "/",
       routes: {
-        "/": (context) => const navBar(),
+        "/": (context) => const Splash(),
       },
     );
   }
