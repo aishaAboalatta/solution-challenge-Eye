@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321481713488",
+    "project_id": "eye-solution-challenge",
+    "storage_bucket": "eye-solution-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321481713488:android:0334f355bce098ebb92e55",
+        "android_client_info": {
+          "package_name": "com.example.eye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321481713488-ja6eaf9d8gh9tbvumhlpo1us3ribhge7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1NwkB9dVMtSsP--AJwrxRPkoQlRbI92g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321481713488-ja6eaf9d8gh9tbvumhlpo1us3ribhge7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,6 +4,8 @@ import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart
 import 'package:eye/widgets/navBar.dart';
 import 'package:flutter/material.dart';
 
+import '/register/register_screen.dart';
+
 //Here is the splash screen
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -85,7 +87,8 @@ class _SplashState extends State<Splash> {
           )
         ]),
         onAnimationEnd: () => debugPrint("On Fade In End"),
-        defaultNextScreen: const navBar(),
+        defaultNextScreen: const RegisterScreen(),
+        //defaultNextScreen: const navBar(),
       ),
     );
   }

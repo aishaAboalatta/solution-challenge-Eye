@@ -1,4 +1,4 @@
-import 'package:eye/profile.dart';
+import 'package:eye/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../constants/colors.dart';
