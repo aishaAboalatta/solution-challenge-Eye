@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eye/widgets/appBarHome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'register/provider/auth_provider.dart';
-import 'package:provider/provider.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
