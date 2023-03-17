@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'register/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-class test extends StatefulWidget {
-  const test({super.key});
+class home extends StatefulWidget {
+  const home({super.key});
 
   @override
-  State<test> createState() => _testState();
+  State<home> createState() => _homeState();
 }
 
-class _testState extends State<test> {
+class _homeState extends State<home> {
   String userName = "";
   @override
   void initState() {

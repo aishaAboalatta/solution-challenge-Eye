@@ -1,5 +1,5 @@
 import 'package:eye/widgets/appBar.dart';
-import 'package:eye/test.dart';
+import 'package:eye/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -65,11 +65,11 @@ class _navBarState extends State<navBar> {
 
   List<Widget> _buildScreens() {
     return [
-      const test(),
-      const test(),
-      const test(),
-      const test(),
-      const test()
+      const home(),
+      const home(),
+      const home(),
+      const home(),
+      const home()
     ];
   }
 
