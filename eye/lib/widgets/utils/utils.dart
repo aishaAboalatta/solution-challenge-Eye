@@ -25,3 +25,18 @@ Future<File?> pickImage(BuildContext context) async {
 
   return image;
 }
+
+Future<File?> pickImageCam(BuildContext context) async {
+  File? image;
+  try {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      image = File(pickedImage.path);
+    }
+  } catch (e) {
+    showSnackBar(context, e.toString());
+  }
+
+  return image;
+}

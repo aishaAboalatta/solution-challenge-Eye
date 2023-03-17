@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      prefixIcon: phoneController.text.length > 9
+                      prefixIcon: phoneController.text.length >= 9
                           ? Container(
                               height: 30,
                               width: 30,

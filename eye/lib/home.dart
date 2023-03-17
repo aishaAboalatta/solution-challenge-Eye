@@ -12,22 +12,45 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   String userName = "";
+  String userPhoto = "";
+
   @override
   void initState() {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     String userId = user!.uid;
     setUserName(userId);
+    setUserPhoto(userId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    String userId = user!.uid;
+    setUserName(userId);
+    setUserPhoto(userId);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBarHome(title: userName, context: context),
-      body: Center(),
+      appBar: appBarHome(title: userName, context: context, photo: userPhoto),
+      body: Center(
+          /*
+        child: GestureDetector(
+            onTap: () {
+              final FirebaseAuth auth = FirebaseAuth.instance;
+              final User? user = auth.currentUser;
+              String userId = user!.uid;
+              setUserPhoto(userId);
+              print("---------${userPhoto}");
+            },
+            child: Container(
+              height: 45,
+              width: 45,
+              color: Colors.black,
+            )),*/
+          ),
     );
   }
 
@@ -44,6 +67,19 @@ class _homeState extends State<home> {
     }
   }
 
+  Future<void> setUserPhoto(String userId) async {
+    String existedPhoto = await getPhoto(userId);
+    if (existedPhoto != "") {
+      setState(() {
+        userPhoto = existedPhoto;
+      });
+    } else {
+      setState(() {
+        userPhoto = "no";
+      });
+    }
+  }
+
   Future<String> getName(String userId) async {
     String userName = "";
     final userDoc =
@@ -51,5 +87,14 @@ class _homeState extends State<home> {
     var data = userDoc.data() as Map;
     userName = data["name"];
     return userName;
+  }
+
+  Future<String> getPhoto(String userId) async {
+    String userPhoto = "";
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    var data = userDoc.data() as Map;
+    userPhoto = data["profilePic"];
+    return userPhoto;
   }
 }

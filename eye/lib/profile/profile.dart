@@ -58,12 +58,12 @@ class _profileState extends State<profile> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => editProfile(
-                                      ImageUrl:
-                                          NetworkImage(userInfo['profilePic']),
-                                      email: userInfo['email'],
-                                      name: userInfo['name'],
-                                      phone: userInfo['phoneNumber'],
-                                    )));
+                                    ImageUrl:
+                                        NetworkImage(userInfo['profilePic']),
+                                    email: userInfo['email'],
+                                    name: userInfo['name'],
+                                    phone: userInfo['phoneNumber'],
+                                    id: userId)));
                       },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
@@ -169,7 +169,7 @@ class _profileState extends State<profile> {
                       ),
                       Text(
                         userInfo['email'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff2c4339),
                           fontSize: 17,
                           fontFamily: "Almarai",
@@ -300,7 +300,7 @@ class _profileState extends State<profile> {
                 ],
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           }),
     );

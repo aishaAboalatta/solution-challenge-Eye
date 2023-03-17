@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../constants/colors.dart';
 
-AppBar appBarHome({required String title, required BuildContext context}) {
+AppBar appBarHome(
+    {required String title,
+    required BuildContext context,
+    required String photo}) {
   return AppBar(
     actions: [
       InkWell(
@@ -41,22 +44,42 @@ AppBar appBarHome({required String title, required BuildContext context}) {
         //fontFamily: "Tajawal",
       ),
     ),
-    leading: IconButton(
-      padding: const EdgeInsets.only(right: 20),
-      icon: const Icon(
-        Icons.account_circle,
-        color: white,
-        size: 40.0,
-      ),
-      onPressed: () {
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: const profile(),
-          withNavBar: false,
-          pageTransitionAnimation: PageTransitionAnimation.slideRight,
-        );
-      },
-    ),
+    leading: photo == "no"
+        ? IconButton(
+            padding: const EdgeInsets.only(right: 20),
+            icon: const Icon(
+              Icons.account_circle,
+              color: white,
+              size: 40.0,
+            ),
+            onPressed: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const profile(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.slideRight,
+              );
+            },
+          )
+        : GestureDetector(
+            onTap: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const profile(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.slideRight,
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(photo), fit: BoxFit.cover),
+                color: white,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
     backgroundColor: primaryDarkGrean,
     shadowColor: primaryDarkGrean,
     elevation: 3,

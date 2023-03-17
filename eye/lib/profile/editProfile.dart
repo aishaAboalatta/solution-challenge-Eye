@@ -1,33 +1,58 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eye/profile/profile.dart';
 import 'package:eye/widgets/appBar.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../widgets/utils/utils.dart';
 
 class editProfile extends StatefulWidget {
-  var ImageUrl, name, phone, email;
+  var ImageUrl, name, phone, email, id;
   editProfile(
       {super.key,
       required this.ImageUrl,
       required this.name,
       required this.phone,
-      required this.email});
+      required this.email,
+      required this.id});
 
   @override
   State<editProfile> createState() => _editProfileState();
 }
 
 class _editProfileState extends State<editProfile> {
+  var _uid;
+  File? image;
+  String downloadUrl = "";
+  bool complateUpload = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameinput = TextEditingController();
   TextEditingController phoneinput = TextEditingController();
   TextEditingController emailinput = TextEditingController();
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   @override
   void initState() {
+    _uid = widget.phone;
     nameinput.text = widget.name;
     phoneinput.text = widget.phone;
     emailinput.text = widget.email;
     super.initState();
+  }
+
+  // for selecting image
+  void selectImage() async {
+    image = await pickImage(context);
+    setState(() {});
+  }
+
+  // for selecting image
+  void selectImageCam() async {
+    image = await pickImageCam(context);
+    setState(() {});
   }
 
   @override
@@ -49,28 +74,54 @@ class _editProfileState extends State<editProfile> {
                 Center(
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 7, top: 43),
-                        width: 141,
-                        height: 141,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: widget.ImageUrl, fit: BoxFit.cover),
-                          color: white,
-                          border: Border.all(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            width: 1,
-                          ),
-                          shape: BoxShape.circle,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x3f000000),
-                              blurRadius: 4,
-                              offset: Offset(0, 4),
+                      image == null
+                          ? Container(
+                              margin: const EdgeInsets.only(bottom: 7, top: 43),
+                              width: 141,
+                              height: 141,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: widget.ImageUrl, fit: BoxFit.cover),
+                                color: white,
+                                border: Border.all(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x3f000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.only(bottom: 7, top: 43),
+                              width: 141,
+                              height: 141,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: FileImage(image!),
+                                    fit: BoxFit.cover),
+                                color: white,
+                                border: Border.all(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x3f000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
                       //زر التعديل على الصورة
                       Positioned(
                           bottom: 0,
@@ -103,13 +154,13 @@ class _editProfileState extends State<editProfile> {
                 const SizedBox(height: 10),
                 //الاسم
                 formField(nameinput, "الاسم", Icons.pin, TextInputType.name,
-                    validName, 40, 1),
+                    validName, 40, 1, false),
                 //رقم الهاتف
                 formField(phoneinput, "رقم الهاتف", Icons.phone,
-                    TextInputType.datetime, validName, 13, 1),
+                    TextInputType.datetime, null, 13, 1, true),
                 //الايميل
                 formField(emailinput, "البريد الإلكتروني", Icons.email,
-                    TextInputType.emailAddress, validEmail, 40, 1),
+                    TextInputType.emailAddress, validEmail, 40, 1, false),
                 //submit
                 const SizedBox(
                   height: 10,
@@ -173,18 +224,8 @@ class _editProfileState extends State<editProfile> {
                   ),
                 ),
                 onPressed: () async {
-                  /*
-                  // Pick an image
-                  final XFile? photo =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  try {
-                    final file = File(photo!.path);
-                    uploadImageToFirebaseStorage(file);
-                  } catch (e) {
-                    print("error");
-                  }
-                  Navigator.of(context).pop();
-                  */
+                  Navigator.pop(context);
+                  selectImage();
                 },
               ),
             ),
@@ -206,15 +247,8 @@ class _editProfileState extends State<editProfile> {
                   ),
                 ),
                 onPressed: () async {
-                  /*
-                  // Capture a photo
-                  final XFile? photo =
-                      await _picker.pickImage(source: ImageSource.camera);
-
-                  final file = File(photo!.path);
-                  uploadImageToFirebaseStorage(file);
-                  Navigator.of(context).pop();
-                  */
+                  Navigator.pop(context);
+                  selectImageCam();
                 },
               ),
             )
@@ -231,10 +265,12 @@ class _editProfileState extends State<editProfile> {
       TextInputType input,
       String? Function(String?)? validation,
       int maxLen,
-      int maxLine) {
+      int maxLine,
+      bool read) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextFormField(
+        readOnly: read,
         controller: controll,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: input,
@@ -275,30 +311,41 @@ class _editProfileState extends State<editProfile> {
 
   Widget submitBttn() {
     return ElevatedButton(
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {}
-          /*final isValid = _formKey.currentState.validate();
-            // FocusScope.of(context).unfocus();
-
-            if (isValid) {
-              _formKey.currentState.save();
-
-              final message =
-                  'Username: $username\nPassword: $password\nEmail: $email';
-              final snackBar = SnackBar(
-                content: Text(
-                  message,
-                  style: TextStyle(fontSize: 20),
-                ),
-                backgroundColor: Colors.green,
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }*/
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
+            FocusScope.of(context).unfocus();
+            if (image != null) {
+              storeFileToStorage("profilePic/${widget.id}", image!);
+            } else {
+              setState(() {
+                complateUpload = true;
+              });
+              final userUpdated =
+                  FirebaseFirestore.instance.collection('users').doc(widget.id);
+              userUpdated.update({
+                'name': nameinput.text,
+                'email': emailinput.text,
+              });
+            }
+            if (complateUpload) {
+              Future.delayed(const Duration(seconds: 1), () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => profile()),
+                );
+                //Navigator.pop(context);
+              });
+            } else {
+              showSnackBar(context, "الرجاء الانتظار يتم تحميل الصورة");
+            }
+          }
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(primaryDarkGrean),
           padding: MaterialStateProperty.all(
-              EdgeInsets.symmetric(horizontal: 90, vertical: 13)),
+              const EdgeInsets.symmetric(horizontal: 90, vertical: 13)),
           shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
         ),
@@ -311,5 +358,26 @@ class _editProfileState extends State<editProfile> {
             fontWeight: FontWeight.w700,
           ),
         ));
+  }
+
+  void storeFileToStorage(String ref, File file) async {
+    String Url = "";
+    UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
+    TaskSnapshot snapshot = await uploadTask;
+    await snapshot.ref.getDownloadURL().then((value) {
+      Url = value;
+      final userUpdated =
+          FirebaseFirestore.instance.collection('users').doc(widget.id);
+      userUpdated.update({
+        'name': nameinput.text,
+        'email': emailinput.text,
+        'profilePic': Url,
+      }).whenComplete(() {
+        setState(() {
+          complateUpload = true;
+        });
+        showSnackBar(context, "تم تحميل الصورة بنجاح");
+      });
+    });
   }
 }
