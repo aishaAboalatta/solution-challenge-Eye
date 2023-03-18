@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../constants/colors.dart';
 import '../model/loseFormModel.dart';
 import '../widgets/appBar.dart';
+import '../widgets/toastMssg.dart';
 import '../widgets/utils/utils.dart';
 
 class loseForm extends StatefulWidget {
@@ -478,6 +479,7 @@ class _loseFormState extends State<loseForm> {
             createNewInform();
 
             Future.delayed(const Duration(seconds: 1), () {
+              showToast("تم رفع البلاغ بنجاح");
               Navigator.pop(context);
             });
           }
