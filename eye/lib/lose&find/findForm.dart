@@ -1,8 +1,15 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/colors.dart';
+import '../model/findFormModel.dart';
 import '../widgets/appBar.dart';
+import '../widgets/utils/utils.dart';
 
 class findForm extends StatefulWidget {
   const findForm({super.key});
@@ -13,7 +20,9 @@ class findForm extends StatefulWidget {
 
 class _findFormState extends State<findForm> {
   final _formKey = GlobalKey<FormState>();
-  var uploadImageUrl = ""; //image URL before choose pic
+  var uploadImageUrl = "";
+  File? image;
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   TextEditingController nameinput = TextEditingController();
   TextEditingController ageinput = TextEditingController();
   TextEditingController dateinput = TextEditingController();
@@ -30,6 +39,18 @@ class _findFormState extends State<findForm> {
     super.initState();
   }
 
+  // for selecting image
+  Future selectImage() async {
+    image = await pickImage(context);
+    setState(() {});
+  }
+
+  // for selecting image
+  Future selectImageCam() async {
+    image = await pickImageCam(context);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,16 +62,7 @@ class _findFormState extends State<findForm> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: <Widget>[
-              if (uploadImageUrl.isEmpty)
-                imageForm()
-              else
-                SizedBox(
-                  height: 120,
-                  width: 120,
-                  child: Image.network(
-                    uploadImageUrl,
-                  ),
-                ),
+              image == null ? imageForm() : imageFormAfter(image),
               ////////////
               const SizedBox(height: 10),
               formField(nameinput, "الاسم", Icons.pin, TextInputType.name,
@@ -163,6 +175,52 @@ class _findFormState extends State<findForm> {
     );
   }
 
+  Widget imageFormAfter(image) {
+    return Center(
+      child: Stack(children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            showPhotoDialog();
+          },
+          child: Container(
+            height: 120,
+            width: 120,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: FileImage(image!)),
+              shape: BoxShape.circle,
+              color: primaryDarkGrean,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x3f000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                  size: 35,
+                ),
+                Text(
+                  "تغيير الصورة",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
   Future<void> showPhotoDialog() async {
     return showDialog<void>(
       context: context,
@@ -188,18 +246,19 @@ class _findFormState extends State<findForm> {
                   ),
                 ),
                 onPressed: () async {
-                  /*
-                  // Pick an image
-                  final XFile? photo =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  try {
-                    final file = File(photo!.path);
-                    uploadImageToFirebaseStorage(file);
-                  } catch (e) {
-                    print("error");
-                  }
-                  Navigator.of(context).pop();
-                  */
+                  Navigator.pop(context);
+                  await selectImage();
+                  final FirebaseAuth auth = FirebaseAuth.instance;
+                  final User? user = auth.currentUser;
+                  String userId = user!.uid;
+
+                  String nowTime =
+                      DateTime.now().millisecondsSinceEpoch.toString();
+                  await storeFileToStorage(
+                          "findFormPic/${userId}-${nowTime}", image!)
+                      .then((value) {
+                    uploadImageUrl = value;
+                  });
                 },
               ),
             ),
@@ -221,15 +280,19 @@ class _findFormState extends State<findForm> {
                   ),
                 ),
                 onPressed: () async {
-                  /*
-                  // Capture a photo
-                  final XFile? photo =
-                      await _picker.pickImage(source: ImageSource.camera);
+                  Navigator.pop(context);
+                  await selectImageCam();
+                  final FirebaseAuth auth = FirebaseAuth.instance;
+                  final User? user = auth.currentUser;
+                  String userId = user!.uid;
 
-                  final file = File(photo!.path);
-                  uploadImageToFirebaseStorage(file);
-                  Navigator.of(context).pop();
-                  */
+                  String nowTime =
+                      DateTime.now().millisecondsSinceEpoch.toString();
+                  await storeFileToStorage(
+                          "findFormPic/${userId}-${nowTime}", image!)
+                      .then((value) {
+                    uploadImageUrl = value;
+                  });
                 },
               ),
             )
@@ -410,24 +473,58 @@ class _findFormState extends State<findForm> {
 
   Widget submitBttn() {
     return ElevatedButton(
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {}
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            createNewInform();
+
+            Future.delayed(const Duration(seconds: 1), () {
+              Navigator.pop(context);
+            });
+          }
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(primaryDarkGrean),
           padding: MaterialStateProperty.all(
-              EdgeInsets.symmetric(horizontal: 90, vertical: 13)),
+              EdgeInsets.symmetric(horizontal: 90, vertical: 10)),
           shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         ),
         child: const Text(
           "إبلاغ",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 18,
             fontFamily: "Almarai",
             fontWeight: FontWeight.w700,
           ),
         ));
+  }
+
+  Future<String> storeFileToStorage(String ref, File file) async {
+    UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future createNewInform() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    String userId = user!.uid;
+
+    final newForm = FirebaseFirestore.instance.collection('findForm').doc();
+    findFormModel form = findFormModel(
+        id: newForm.id,
+        userId: userId,
+        name: nameinput.text,
+        photo: uploadImageUrl,
+        age: num.parse(ageinput.text),
+        date: dateinput.text,
+        time: timeinput.text,
+        location: "",
+        description: descinput.text);
+
+    final json = form.toJson();
+    await newForm.set(json);
   }
 }

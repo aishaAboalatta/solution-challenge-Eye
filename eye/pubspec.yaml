@@ -43,7 +43,7 @@ dependencies:
   pinput: any
   firebase_database: any
   firebase_storage: any
-  cloud_firestore: ^4.4.4
+  cloud_firestore: ^4.4.5
   shared_preferences: ^2.0.18
 
 
