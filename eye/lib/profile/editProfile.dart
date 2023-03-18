@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../widgets/toastMssg.dart';
 import '../widgets/utils/utils.dart';
 
 class editProfile extends StatefulWidget {
@@ -330,6 +331,7 @@ class _editProfileState extends State<editProfile> {
             }
             if (complateUpload) {
               Future.delayed(const Duration(seconds: 1), () {
+                showToast("تم تعديل الملف الشخصي بنجاح");
                 Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
