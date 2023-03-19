@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../constants/colors.dart';
 import '../lose&find/findForm.dart';
 import '../lose&find/loseForm.dart';
+import '../myForms/myForms.dart';
 
 class navBar extends StatefulWidget {
   const navBar({super.key});
@@ -68,7 +69,7 @@ class _navBarState extends State<navBar> {
       const home(),
       const home(),
       const home(),
-      const home(),
+      const myForms(),
       const home()
     ];
   }

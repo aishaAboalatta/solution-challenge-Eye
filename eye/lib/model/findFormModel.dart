@@ -8,18 +8,19 @@ class findFormModel {
   String time;
   String location;
   String description;
+  String state;
 
-  findFormModel({
-    required this.id,
-    required this.userId,
-    required this.name,
-    required this.photo,
-    required this.age,
-    required this.date,
-    required this.time,
-    required this.location,
-    required this.description,
-  });
+  findFormModel(
+      {required this.id,
+      required this.userId,
+      required this.name,
+      required this.photo,
+      required this.age,
+      required this.date,
+      required this.time,
+      required this.location,
+      required this.description,
+      required this.state});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -30,7 +31,8 @@ class findFormModel {
         "date": date,
         "time": time,
         "location": location,
-        "description": description
+        "description": description,
+        "state": state
       };
 
   static findFormModel fromJson(Map<String, dynamic> json) => findFormModel(
@@ -42,5 +44,6 @@ class findFormModel {
       date: json['date'],
       time: json['time'],
       location: json['location'],
-      description: json['description']);
+      description: json['description'],
+      state: json['state']);
 }

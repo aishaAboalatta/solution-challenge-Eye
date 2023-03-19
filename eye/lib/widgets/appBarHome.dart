@@ -6,7 +6,9 @@ import '../../constants/colors.dart';
 AppBar appBarHome(
     {required String title,
     required BuildContext context,
-    required String photo}) {
+    required String photo,
+    IconData icon = Icons.account_circle,
+    bool isBottom = false}) {
   return AppBar(
     actions: [
       InkWell(
@@ -41,25 +43,26 @@ AppBar appBarHome(
         fontSize: 20.0,
         fontWeight: FontWeight.w600,
         color: white,
-        //fontFamily: "Tajawal",
+        //fontFamily: "Almarai",
       ),
     ),
     leading: photo == "no"
-        ? IconButton(
+        ? Padding(
+            //it was iconButton
             padding: const EdgeInsets.only(right: 20),
-            icon: const Icon(
-              Icons.account_circle,
+            child: Icon(
+              icon,
               color: white,
               size: 40.0,
             ),
-            onPressed: () {
-              PersistentNavBarNavigator.pushNewScreen(
+            /*  onPressed: () {
+                   PersistentNavBarNavigator.pushNewScreen(
                 context,
                 screen: const profile(),
                 withNavBar: false,
                 pageTransitionAnimation: PageTransitionAnimation.slideRight,
               );
-            },
+            },*/
           )
         : GestureDetector(
             onTap: () {
@@ -84,5 +87,27 @@ AppBar appBarHome(
     shadowColor: primaryDarkGrean,
     elevation: 3,
     centerTitle: false,
+    bottom: isBottom
+        ? const TabBar(
+            /*
+            indicatorPadding: const EdgeInsets.all(5),
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(65), // Creates border
+                color: darkOrange),*/
+            //indicatorColor: darkOrange,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: white,
+            labelColor: Colors.white,
+            indicatorWeight: 5,
+            tabs: <Widget>[
+              Tab(
+                text: "فقدت",
+              ),
+              Tab(
+                text: "وجدت",
+              ),
+            ],
+          )
+        : null,
   );
 }

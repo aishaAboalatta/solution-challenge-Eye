@@ -12,7 +12,7 @@ AppBar appBar(
         fontSize: 20.0,
         fontWeight: FontWeight.w600,
         color: white,
-        //fontFamily: "Tajawal",
+        //fontFamily: "Almarai",
       ),
     ),
     leading: IconButton(

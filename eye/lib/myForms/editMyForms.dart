@@ -1,25 +1,37 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eye/widgets/toastMssg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/colors.dart';
-import '../model/loseFormModel.dart';
+import '../model/findFormModel.dart';
 import '../widgets/appBar.dart';
-import '../widgets/toastMssg.dart';
 import '../widgets/utils/utils.dart';
 
-class loseForm extends StatefulWidget {
-  const loseForm({super.key});
+class editMyForms extends StatefulWidget {
+  String photo, name, age, date, time, loc, desc, type, id;
+
+  editMyForms(
+      {super.key,
+      required this.photo,
+      required this.name,
+      required this.age,
+      required this.date,
+      required this.time,
+      required this.loc,
+      required this.desc,
+      required this.type,
+      required this.id});
 
   @override
-  State<loseForm> createState() => _loseFormState();
+  State<editMyForms> createState() => _editMyFormsState();
 }
 
-class _loseFormState extends State<loseForm> {
+class _editMyFormsState extends State<editMyForms> {
   final _formKey = GlobalKey<FormState>();
   var uploadImageUrl = "";
   File? image;
@@ -32,11 +44,11 @@ class _loseFormState extends State<loseForm> {
 
   @override
   void initState() {
-    nameinput.text = "";
-    ageinput.text = "";
-    dateinput.text = "";
-    timeinput.text = "";
-    descinput.text = "";
+    nameinput.text = widget.name;
+    ageinput.text = widget.age;
+    dateinput.text = widget.date;
+    timeinput.text = widget.time;
+    descinput.text = widget.desc;
     super.initState();
   }
 
@@ -57,7 +69,7 @@ class _loseFormState extends State<loseForm> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: appBar(
-            context: context, title: 'وجدت شخص', icon: Icons.close_rounded),
+            context: context, title: 'تعديل بلاغ', icon: Icons.close_rounded),
         body: Form(
           key: _formKey,
           child: ListView(
@@ -78,7 +90,7 @@ class _loseFormState extends State<loseForm> {
               ///مكانه الموقع
               formField(nameinput, "الموقع", Icons.pin, TextInputType.name,
                   validName, 40, 1),
-              // وصف
+              //ناقص الموقع
               formField(descinput, "وصف تفصيلي", Icons.pin,
                   TextInputType.multiline, validDescri, 200, 3),
               submitBttn(),
@@ -141,10 +153,12 @@ class _loseFormState extends State<loseForm> {
           child: Container(
             height: 120,
             width: 120,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(widget.photo), fit: BoxFit.cover),
               shape: BoxShape.circle,
               color: primaryDarkGrean,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Color(0x3f000000),
                   blurRadius: 4,
@@ -161,7 +175,7 @@ class _loseFormState extends State<loseForm> {
                   size: 35,
                 ),
                 Text(
-                  "أضف صورة",
+                  "تعديل الصورة",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -256,7 +270,7 @@ class _loseFormState extends State<loseForm> {
                   String nowTime =
                       DateTime.now().millisecondsSinceEpoch.toString();
                   await storeFileToStorage(
-                          "loseFormPic/${userId}-${nowTime}", image!)
+                          "findFormPic/${userId}-${nowTime}", image!)
                       .then((value) {
                     uploadImageUrl = value;
                   });
@@ -290,7 +304,7 @@ class _loseFormState extends State<loseForm> {
                   String nowTime =
                       DateTime.now().millisecondsSinceEpoch.toString();
                   await storeFileToStorage(
-                          "loseFormPic/${userId}-${nowTime}", image!)
+                          "findFormPic/${userId}-${nowTime}", image!)
                       .then((value) {
                     uploadImageUrl = value;
                   });
@@ -476,10 +490,10 @@ class _loseFormState extends State<loseForm> {
     return ElevatedButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            createNewInform();
+            editForm();
 
             Future.delayed(const Duration(seconds: 1), () {
-              showToast("تم رفع البلاغ بنجاح");
+              showToast("تم تعديل البلاغ بنجاح");
               Navigator.pop(context);
             });
           }
@@ -492,7 +506,7 @@ class _loseFormState extends State<loseForm> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         ),
         child: const Text(
-          "إبلاغ",
+          "تعديل البلاغ",
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -509,25 +523,18 @@ class _loseFormState extends State<loseForm> {
     return downloadUrl;
   }
 
-  Future createNewInform() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    String userId = user!.uid;
+  Future editForm() async {
+    final newForm =
+        FirebaseFirestore.instance.collection(widget.type).doc(widget.id);
 
-    final newForm = FirebaseFirestore.instance.collection('loseForm').doc();
-    loseFormModel form = loseFormModel(
-        id: newForm.id,
-        userId: userId,
-        name: nameinput.text,
-        photo: uploadImageUrl,
-        age: num.parse(ageinput.text),
-        date: dateinput.text,
-        time: timeinput.text,
-        location: "",
-        description: descinput.text,
-        state: "لم يتم العثور بعد");
-
-    final json = form.toJson();
-    await newForm.set(json);
+    await newForm.update({
+      'name': nameinput.text,
+      'photo': image == null ? widget.photo : uploadImageUrl,
+      'age': num.parse(ageinput.text),
+      'date': dateinput.text,
+      'time': timeinput.text,
+      'location': "",
+      'description': descinput.text,
+    });
   }
 }

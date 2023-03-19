@@ -524,7 +524,8 @@ class _findFormState extends State<findForm> {
         date: dateinput.text,
         time: timeinput.text,
         location: "",
-        description: descinput.text);
+        description: descinput.text,
+        state: "لم يتم العثور بعد");
 
     final json = form.toJson();
     await newForm.set(json);
