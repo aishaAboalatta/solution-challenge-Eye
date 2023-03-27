@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../model/findFormModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class myForms extends StatefulWidget {
   const myForms({super.key});
@@ -203,11 +204,11 @@ class _myFormsState extends State<myForms> {
                     Text(
                       name,
                       style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: "Almarai",
-                        color: Colors.black,
-                      ),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "Almarai",
+                          color: Colors.black,
+                          height: 1.5),
                     ),
 
                     Row(
@@ -220,10 +221,10 @@ class _myFormsState extends State<myForms> {
                         Text(
                           "العمر: ${age}",
                           style: const TextStyle(
-                            fontSize: 13.0,
-                            fontFamily: "Almarai",
-                            color: Colors.black,
-                          ),
+                              fontSize: 13.0,
+                              fontFamily: "Almarai",
+                              color: Colors.black,
+                              height: 1.5),
                         ),
                       ],
                     ),
@@ -237,10 +238,10 @@ class _myFormsState extends State<myForms> {
                         Text(
                           date,
                           style: const TextStyle(
-                            fontSize: 13.0,
-                            fontFamily: "Almarai",
-                            color: Colors.black,
-                          ),
+                              fontSize: 13.0,
+                              fontFamily: "Almarai",
+                              color: Colors.black,
+                              height: 1.5),
                         ),
                       ],
                     ),
@@ -257,11 +258,11 @@ class _myFormsState extends State<myForms> {
                         Text(
                           state,
                           style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: "Almarai",
-                            color: colo,
-                          ),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: "Almarai",
+                              color: colo,
+                              height: 1.5),
                         ),
                       ],
                     ),
@@ -479,7 +480,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -493,7 +494,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -507,7 +508,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -521,7 +522,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -535,7 +536,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -550,11 +551,34 @@ class _myFormsState extends State<myForms> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    //route to google maps
+                    Uri uri = Uri(
+                        scheme: 'https',
+                        host: 'maps.google.com',
+                        path: '/?q=$loc');
+                    urlLuncher(uri);
                   },
-                  child: const Center(
-                    child: Text(
-                      "(عرض على الخريطة)",
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 5, right: 70),
+                    alignment: Alignment.center,
+                    height: 30,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: lightYellow,
+                        width: 1,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x3f000000),
+                          blurRadius: 4,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                      color: lightYellow,
+                    ),
+                    child: const Text(
+                      "عرض الموقع على الخريطة",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -565,7 +589,7 @@ class _myFormsState extends State<myForms> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -590,5 +614,11 @@ class _myFormsState extends State<myForms> {
             ],
           );
         });
+  }
+}
+
+Future<void> urlLuncher(Uri _url) async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
   }
 }

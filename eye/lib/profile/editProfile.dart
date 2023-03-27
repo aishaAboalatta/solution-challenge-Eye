@@ -64,7 +64,11 @@ class _editProfileState extends State<editProfile> {
         appBar: appBar(
             title: "تعديل الملف الشخصي",
             context: context,
-            icon: Icons.close_rounded),
+            icon: Icons.close_rounded,
+            dialog: true,
+            text: "ستفقد ما قمت بإضافته \n هل أنت متأكد؟",
+            photo: "assets/erase.png",
+            option: "نعم"),
         body: Form(
           key: _formKey,
           child: Padding(
@@ -155,10 +159,11 @@ class _editProfileState extends State<editProfile> {
                 const SizedBox(height: 10),
                 //الاسم
                 formField(nameinput, "الاسم", Icons.pin, TextInputType.name,
-                    validName, 40, 1, false),
+                    validName, 30, 1, false),
                 //رقم الهاتف
                 formField(phoneinput, "رقم الهاتف", Icons.phone,
-                    TextInputType.datetime, null, 13, 1, true),
+                    TextInputType.datetime, null, 13, 1, true,
+                    fillColor: Colors.grey.shade300),
                 //الايميل
                 formField(emailinput, "البريد الإلكتروني", Icons.email,
                     TextInputType.emailAddress, validEmail, 40, 1, false),
@@ -267,7 +272,8 @@ class _editProfileState extends State<editProfile> {
       String? Function(String?)? validation,
       int maxLen,
       int maxLine,
-      bool read) {
+      bool read,
+      {Color fillColor = Colors.white}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextFormField(
@@ -288,7 +294,7 @@ class _editProfileState extends State<editProfile> {
               const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
           labelStyle:
               const TextStyle(color: primaryDarkGrean, fontFamily: "Almarai"),
-          fillColor: Colors.white,
+          fillColor: fillColor,
           filled: true,
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: primaryDarkGrean),

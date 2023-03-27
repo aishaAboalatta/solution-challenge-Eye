@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/colors.dart';
+import '../imageDetection/imageDetection.dart';
+import '../location/currentLocation.dart';
 import '../model/loseFormModel.dart';
 import '../widgets/appBar.dart';
 import '../widgets/toastMssg.dart';
@@ -29,6 +31,7 @@ class _loseFormState extends State<loseForm> {
   TextEditingController dateinput = TextEditingController();
   TextEditingController timeinput = TextEditingController();
   TextEditingController descinput = TextEditingController();
+  TextEditingController locController = TextEditingController();
 
   @override
   void initState() {
@@ -37,6 +40,7 @@ class _loseFormState extends State<loseForm> {
     dateinput.text = "";
     timeinput.text = "";
     descinput.text = "";
+    locController.text = "";
     super.initState();
   }
 
@@ -57,7 +61,13 @@ class _loseFormState extends State<loseForm> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: appBar(
-            context: context, title: 'وجدت شخص', icon: Icons.close_rounded),
+            context: context,
+            title: 'فقدت شخص',
+            icon: Icons.close_rounded,
+            dialog: true,
+            text: "ستفقد ما قمت بإضافته \n هل أنت متأكد؟",
+            photo: "assets/erase.png",
+            option: "نعم"),
         body: Form(
           key: _formKey,
           child: ListView(
@@ -67,7 +77,7 @@ class _loseFormState extends State<loseForm> {
               ////////////
               const SizedBox(height: 10),
               formField(nameinput, "الاسم", Icons.pin, TextInputType.name,
-                  validName, 40, 1),
+                  validName, 30, 1),
               formField(ageinput, "العمر (بالسنوات)", Icons.calendar_month,
                   TextInputType.datetime, validAge, 2, 1),
               formDateTimeField(dateinput, "التاريخ", Icons.calendar_month,
@@ -75,9 +85,18 @@ class _loseFormState extends State<loseForm> {
               formDateTimeField(timeinput, "الوقت", Icons.timer,
                   TextInputType.none, validTime, 7, showTime),
 
-              ///مكانه الموقع
-              formField(nameinput, "الموقع", Icons.pin, TextInputType.name,
-                  validName, 40, 1),
+              /// الموقع
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: locationFeild(
+                    hintText: "اضغط لتحديد الموقع",
+                    icon: Icons.pin_drop_rounded,
+                    inputType: TextInputType.name,
+                    maxLines: 2,
+                    controller: locController,
+                    context: context,
+                    maxLen: 150),
+              ),
               // وصف
               formField(descinput, "وصف تفصيلي", Icons.pin,
                   TextInputType.multiline, validDescri, 200, 3),
@@ -474,9 +493,10 @@ class _loseFormState extends State<loseForm> {
 
   Widget submitBttn() {
     return ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            createNewInform();
+            List array = await getPredectedArray(image!.path);
+            await createNewInform(array); //array
 
             Future.delayed(const Duration(seconds: 1), () {
               showToast("تم رفع البلاغ بنجاح");
@@ -487,7 +507,7 @@ class _loseFormState extends State<loseForm> {
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(primaryDarkGrean),
           padding: MaterialStateProperty.all(
-              EdgeInsets.symmetric(horizontal: 90, vertical: 10)),
+              EdgeInsets.symmetric(horizontal: 90, vertical: 13)),
           shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         ),
@@ -509,7 +529,8 @@ class _loseFormState extends State<loseForm> {
     return downloadUrl;
   }
 
-  Future createNewInform() async {
+  Future createNewInform(array) async {
+    //array
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     String userId = user!.uid;
@@ -523,9 +544,10 @@ class _loseFormState extends State<loseForm> {
         age: num.parse(ageinput.text),
         date: dateinput.text,
         time: timeinput.text,
-        location: "",
+        location: locController.text,
         description: descinput.text,
-        state: "لم يتم العثور بعد");
+        state: "لم يتم العثور بعد",
+        predectedArray: array);
 
     final json = form.toJson();
     await newForm.set(json);

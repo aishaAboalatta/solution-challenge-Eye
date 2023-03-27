@@ -1,6 +1,8 @@
 import 'package:eye/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -11,6 +13,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final GoogleMapsFlutterPlatform mapsImplementation =
+      GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = true;
+  }
   runApp(const MyApp());
 }
 
@@ -35,7 +42,7 @@ class MyApp extends StatelessWidget {
           Locale("ar", "AE"),
         ],
         locale: const Locale("ar", "AE"),
-        //theme: ThemeData(fontFamily: 'Lateef'),
+        theme: ThemeData(fontFamily: 'Almarai'),
         initialRoute: "/",
         routes: {
           "/": (context) => const Splash(),

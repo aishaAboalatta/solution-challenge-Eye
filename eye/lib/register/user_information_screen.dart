@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:eye/constants/colors.dart';
-import 'package:eye/widgets/appBar.dart';
+import 'package:eye/register/register_screen.dart';
 import 'package:eye/widgets/navBar.dart';
 import 'package:flutter/material.dart';
 import 'package:eye/model/user_model.dart';
@@ -9,6 +9,8 @@ import 'package:eye/register/provider/auth_provider.dart';
 import 'package:eye/widgets/utils/utils.dart';
 import 'package:eye/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
+
+import '../location/currentLocation.dart';
 
 class UserInfromationScreen extends StatefulWidget {
   const UserInfromationScreen({super.key});
@@ -42,10 +44,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     final isLoading =
         Provider.of<AuthProvider>(context, listen: true).isLoading;
     return Scaffold(
-      appBar: appBar(
-          title: "تسجيل حساب جديد",
-          context: context,
-          icon: Icons.close_rounded),
+      backgroundColor: lightYellow,
       body: SafeArea(
         child: isLoading == true
             ? const Center(
@@ -54,26 +53,66 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                 ),
               )
             : SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
+                //padding:
+                //const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
                 child: Center(
                   child: Column(
                     children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterScreen(),
+                              ),
+                              (route) => false),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Icon(
+                              Icons.close_rounded,
+                              color: primaryDarkGrean,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "تسجيل حساب جديد",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: primaryDarkGrean),
+                      ),
+                      const SizedBox(height: 30),
                       InkWell(
                         onTap: () => selectImage(),
                         child: image == null
-                            ? const CircleAvatar(
+                            ? CircleAvatar(
                                 backgroundColor: primaryDarkGrean,
-                                radius: 50,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  size: 35,
-                                  color: Colors.white,
+                                radius: 60,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                      size: 35,
+                                    ),
+                                    Text(
+                                      "أضف صورة",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )
                             : CircleAvatar(
                                 backgroundImage: FileImage(image!),
-                                radius: 50,
+                                radius: 60,
                               ),
                       ),
                       Container(
@@ -91,7 +130,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                                 maxLines: 1,
                                 controller: nameController,
                                 validation: validName,
-                                maxLen: 40),
+                                maxLen: 30),
 
                             // email
                             textFeld(
@@ -100,16 +139,17 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                                 inputType: TextInputType.emailAddress,
                                 maxLines: 1,
                                 controller: emailController,
-                                validation: validEmail),
+                                validation: validEmail,
+                                maxLen: 40),
 
-                            // bio
-                            textFeld(
-                              hintText: "Enter your bio here...",
-                              icon: Icons.edit,
-                              inputType: TextInputType.name,
-                              maxLines: 2,
-                              controller: bioController,
-                            ),
+                            // location
+                            locationFeild(
+                                hintText: "اضغط لتحديد الموقع",
+                                icon: Icons.pin_drop_rounded,
+                                inputType: TextInputType.name,
+                                maxLines: 3,
+                                controller: bioController,
+                                context: context),
                           ],
                         ),
                       ),
@@ -120,6 +160,33 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                         child: CustomButton(
                           text: "تسجيل",
                           onPressed: () => storeData(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                width: 150,
+                                height: 150,
+                                decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3f000000),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                  color: Color(0xad2c4339),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(150)),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],
@@ -165,6 +232,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     required TextEditingController controller,
     String? Function(String?)? validation,
     int? maxLen,
+    bool readOnly = false,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -175,6 +243,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
         keyboardType: inputType,
         maxLines: maxLines,
         maxLength: maxLen,
+        readOnly: readOnly,
         decoration: InputDecoration(
           border: InputBorder.none,
           labelText: hintText,
@@ -216,7 +285,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     UserModel userModel = UserModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
-      bio: bioController.text.trim(),
+      location: bioController.text.trim(),
       profilePic: "",
       createdAt: "",
       phoneNumber: "",

@@ -9,6 +9,7 @@ class loseFormModel {
   String location;
   String description;
   String state;
+  List predectedArray;
 
   loseFormModel(
       {required this.id,
@@ -20,7 +21,8 @@ class loseFormModel {
       required this.time,
       required this.location,
       required this.description,
-      required this.state});
+      required this.state,
+      required this.predectedArray});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -32,7 +34,8 @@ class loseFormModel {
         "time": time,
         "location": location,
         "description": description,
-        "state": state
+        "state": state,
+        "predectedArray": predectedArray
       };
 
   static loseFormModel fromJson(Map<String, dynamic> json) => loseFormModel(
@@ -45,5 +48,6 @@ class loseFormModel {
       time: json['time'],
       location: json['location'],
       description: json['description'],
-      state: json["state"]);
+      state: json["state"],
+      predectedArray: json['predectedArray']);
 }

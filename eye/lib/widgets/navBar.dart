@@ -189,19 +189,29 @@ Widget reportOptions(context) {
               ],
             ),
             //العنوان الفرعي
-            const SizedBox(
-              height: 25,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: primaryDarkGrean,
-                  fontSize: 13,
-                  fontFamily: "Almarai",
-                  fontWeight: FontWeight.w700,
-                ),
-                child: Text(
-                  "بإمكانك الإبلاغ عن فقدان أو إيجاد شخص",
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50.0),
+              child: SizedBox(
+                height: 25,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                      color: primaryDarkGrean,
+                      fontSize: 13,
+                      fontFamily: "Almarai",
+                      fontWeight: FontWeight.w700,
+                      height: 1.5),
+                  child: Text(
+                    "بإمكانك الإبلاغ عن فقدان أو إيجاد شخص",
+                  ),
                 ),
               ),
+            ),
+            const Divider(
+              height: 10,
+              thickness: 1,
+              indent: 15,
+              endIndent: 15,
+              color: primaryDarkGrean,
             ),
             // الاختيار الاول
             GestureDetector(
@@ -214,7 +224,7 @@ Widget reportOptions(context) {
                 );
               },
               child: Container(
-                margin: const EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.all(10),
                 height: 130,
                 width: 333,
@@ -237,22 +247,25 @@ Widget reportOptions(context) {
                       children: const [
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontFamily: "Almarai",
-                          ),
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontFamily: "Almarai",
+                              height: 1.5),
                           child: Text(
                             "فقدت شخص ",
                           ),
                         ),
                         SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
                           width: 250,
                           child: DefaultTextStyle(
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontFamily: "Almarai",
-                            ),
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontFamily: "Almarai",
+                                height: 1.5),
                             child: Text(
                               "اختر هذا الخيار ان فقدت شخص وتريد الأبلاغ عن اختفائة من مدة قليلة او حتى من سنوات",
                             ),
@@ -305,22 +318,25 @@ Widget reportOptions(context) {
                       children: const [
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontFamily: "Almarai",
-                          ),
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontFamily: "Almarai",
+                              height: 1.5),
                           child: Text(
                             "وجدت شخص",
                           ),
                         ),
                         SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
                           width: 250,
                           child: DefaultTextStyle(
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontFamily: "Almarai",
-                            ),
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontFamily: "Almarai",
+                                height: 1.5),
                             child: Text(
                               "اختر هذا الخيار ان وجدت أي شخص ضائع أو ان كنت مفقوداً تبحث عن عائلتك",
                             ),
