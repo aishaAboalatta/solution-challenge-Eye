@@ -1,3 +1,4 @@
+import 'package:eye/tracking/track.dart';
 import 'package:eye/widgets/appBar.dart';
 import 'package:eye/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,7 +68,7 @@ class _navBarState extends State<navBar> {
   List<Widget> _buildScreens() {
     return [
       const home(),
-      const home(),
+      const track(),
       const home(),
       const myForms(),
       const home()

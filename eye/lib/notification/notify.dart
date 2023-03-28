@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eye/notification/findFormsSame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './LocalNotificationService.dart';
 
+/*
 void listenToDB(LocalNotificationService service) {
   print("the notification form firestore method was called");
 
@@ -23,6 +25,8 @@ void listenToDB(LocalNotificationService service) {
           var findDocId = data["id"];
           var findArray = data["predectedArray"];
 
+          checkSmilirity(); //findArray
+
           createNotification(
               0,
               "تطابق البلاغ",
@@ -34,7 +38,7 @@ void listenToDB(LocalNotificationService service) {
     });
   });
 }
-
+*/
 //Create notification=================================================
 void createNotification(int id, String title, String body, String payload,
     LocalNotificationService service) async {

@@ -494,7 +494,7 @@ class _findFormState extends State<findForm> {
     return ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            List array = await getPredectedArray(image!.path);
+            List? array = await getPredectedArray(image!.path);
             await createNewInform(array); //array
 
             Future.delayed(const Duration(seconds: 1), () {
@@ -528,7 +528,7 @@ class _findFormState extends State<findForm> {
     return downloadUrl;
   }
 
-  Future createNewInform(array) async {
+  Future createNewInform(List? array) async {
     //array
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
@@ -546,7 +546,7 @@ class _findFormState extends State<findForm> {
         location: locController.text,
         description: descinput.text,
         state: "لم يتم العثور بعد",
-        predectedArray: array);
+        predectedArray: array!);
 
     final json = form.toJson();
     await newForm.set(json);

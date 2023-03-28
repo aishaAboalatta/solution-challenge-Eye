@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 final MLService _mlService = MLService();
 
-Future<List> getPredectedArray(String path) async {
+Future<List?> getPredectedArray(String path) async {
   var receivePort = ReceivePort();
 
   File imgFile = File(path);
@@ -27,7 +27,7 @@ Future<List> getPredectedArray(String path) async {
   var imageConverted = await receivePort.first as Image;
 
 //array for lose form
-  List losePredectedArray = await _mlService.predict(imageConverted, faces[0]);
+  List? losePredectedArray = await _mlService.predict(imageConverted, faces[0]);
 
   return losePredectedArray;
 }

@@ -21,7 +21,7 @@ class MLService {
     }
   }
 
-  predict(imglib.Image image, Face face) async {
+  Future<List?> predict(imglib.Image image, Face face) async {
     List input = _preProcess(image, face);
 
     input = input.reshape([1, 112, 112, 3]);

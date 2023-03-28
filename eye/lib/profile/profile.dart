@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../model/user_model.dart';
 import '../register/provider/auth_provider.dart';
+import 'friends.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -189,7 +190,10 @@ class _profileState extends State<profile> {
                   //الاصدقاء
                   GestureDetector(
                     onTap: () {
-                      //route to friends page
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const friends()));
                     },
                     child: Row(
                       children: const [

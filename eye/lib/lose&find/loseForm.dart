@@ -495,8 +495,58 @@ class _loseFormState extends State<loseForm> {
     return ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            List array = await getPredectedArray(image!.path);
-            await createNewInform(array); //array
+            List? array = [
+              -0.01702696830034256,
+              0.03669794276356697,
+              0.017164362594485283,
+              0.0032593877986073494,
+              -0.06348714977502823,
+              0.09823022782802582,
+              -0.08304639905691147,
+              -0.11829375475645065,
+              -0.10516717284917831,
+              -0.04794669896364212,
+              -0.02049948461353779,
+              0.012281193397939205,
+              -0.008516287431120872,
+              0.03501773253083229,
+              -0.003100056666880846,
+              -0.01973763294517994,
+              -0.02905753254890442,
+              -0.007473887875676155,
+              0.0019424263155087829,
+              0.003717653453350067,
+              -0.19119137525558472,
+              0.0867079347372055,
+              -0.045135438442230225,
+              0.014498111791908741,
+              -0.016003288328647614,
+              0.016655461862683296,
+              -0.05340960621833801,
+              0.06565283983945847,
+              0.19477668404579163,
+              -0.12294705957174301,
+              -0.009153815917670727,
+              0.2526645362377167,
+              0.07628714293241501,
+              -0.0022129379212856293,
+              -0.14698179066181183,
+              0.17843914031982422,
+              -0.03250308334827423,
+              -0.015198597684502602,
+              0.0011564827291294932,
+              -0.08369722962379456,
+              0.010453961789608002,
+              0.00499044731259346,
+              0.017474595457315445,
+              -0.010559789836406708,
+              0.007143479306250811,
+              -0.071443997
+            ];
+            // List? array = await getPredectedArray(image!.path);
+
+            print("==========before");
+            createNewInform(array); //array
 
             Future.delayed(const Duration(seconds: 1), () {
               showToast("تم رفع البلاغ بنجاح");
@@ -529,12 +579,12 @@ class _loseFormState extends State<loseForm> {
     return downloadUrl;
   }
 
-  Future createNewInform(array) async {
+  Future createNewInform(List? array) async {
     //array
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     String userId = user!.uid;
-
+    print("==========start");
     final newForm = FirebaseFirestore.instance.collection('loseForm').doc();
     loseFormModel form = loseFormModel(
         id: newForm.id,
@@ -547,9 +597,11 @@ class _loseFormState extends State<loseForm> {
         location: locController.text,
         description: descinput.text,
         state: "لم يتم العثور بعد",
-        predectedArray: array);
-
+        predectedArray: array!);
+    print("==========middle");
     final json = form.toJson();
     await newForm.set(json);
+
+    print("==========end form creation");
   }
 }

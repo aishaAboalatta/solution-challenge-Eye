@@ -162,7 +162,7 @@ class AuthProvider extends ChangeNotifier {
         name: snapshot['name'],
         email: snapshot['email'],
         createdAt: snapshot['createdAt'],
-        location: snapshot['bio'],
+        location: snapshot['location'],
         uid: snapshot['uid'],
         profilePic: snapshot['profilePic'],
         phoneNumber: snapshot['phoneNumber'],

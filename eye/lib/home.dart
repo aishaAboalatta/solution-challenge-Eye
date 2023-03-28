@@ -27,6 +27,7 @@ class _homeState extends State<home> {
     String userId = user!.uid;
     setUserName(userId);
     setUserPhoto(userId);
+
     /*service = LocalNotificationService();
     service.intialize();
     listenToNotification(service);*/
@@ -40,7 +41,7 @@ class _homeState extends State<home> {
     String userId = user!.uid;
     setUserName(userId);
     setUserPhoto(userId);
-   // listenToDB(service);
+    // listenToDB(service);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,

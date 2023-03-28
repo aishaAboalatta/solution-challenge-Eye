@@ -1,7 +1,9 @@
+import 'package:eye/notification/notificationPage.dart';
 import 'package:eye/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../constants/colors.dart';
+import '../chat.dart';
 
 AppBar appBarHome(
     {required String title,
@@ -20,7 +22,15 @@ AppBar appBarHome(
             size: 25.0,
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          if (photo != "no") {
+            PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: chat(), //page name here
+              pageTransitionAnimation: PageTransitionAnimation.slideUp,
+            );
+          }
+        },
       ),
       InkWell(
         child: const SizedBox(
@@ -31,7 +41,15 @@ AppBar appBarHome(
             size: 30.0,
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          if (photo != "no") {
+            PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: notificationPage(), //page name here
+              pageTransitionAnimation: PageTransitionAnimation.slideUp,
+            );
+          }
+        },
       ),
       const SizedBox(
         width: 10,

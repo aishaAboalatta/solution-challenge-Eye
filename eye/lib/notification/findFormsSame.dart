@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../imageDetection/ml_service.dart';
 
+final MLService _mlService = MLService();
 FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User? user = auth.currentUser;
@@ -11,7 +13,6 @@ getAllForms() {
     (querySnapshot) {
       print("Successfully completed");
       for (var docSnapshot in querySnapshot.docs) {
-        checkSmilirity(docSnapshot.id,docSnapshot.data())
         print('${docSnapshot.id} => ${docSnapshot.data()}');
       }
     },
@@ -19,5 +20,8 @@ getAllForms() {
   );
 }
 
-
-checkSmilirity(){}
+checkSmilirity() {
+  //list1
+  getAllForms();
+  _mlService.compare("list1", "list2");
+}

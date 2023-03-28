@@ -23,14 +23,14 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
   File? image;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final bioController = TextEditingController();
+  final locationController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     nameController.dispose();
     emailController.dispose();
-    bioController.dispose();
+    locationController.dispose();
   }
 
   // for selecting image
@@ -148,7 +148,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                                 icon: Icons.pin_drop_rounded,
                                 inputType: TextInputType.name,
                                 maxLines: 3,
-                                controller: bioController,
+                                controller: locationController,
                                 context: context),
                           ],
                         ),
@@ -285,7 +285,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     UserModel userModel = UserModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
-      location: bioController.text.trim(),
+      location: locationController.text.trim(),
       profilePic: "",
       createdAt: "",
       phoneNumber: "",
