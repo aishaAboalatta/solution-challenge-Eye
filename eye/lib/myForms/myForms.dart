@@ -57,32 +57,48 @@ class _myFormsState extends State<myForms> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    loseForms = snapshot.data!.toList();
-                  }
-                  return ListView.builder(
-                    itemCount: loseForms.length,
-                    itemBuilder: (context, index) {
-                      Color stateColor;
-                      if (loseForms[index].state == "تم العثور") {
-                        stateColor = findColor;
-                      } else {
-                        stateColor = lostColor;
-                      }
+                    final data = snapshot.data!;
 
-                      return formCard(
-                          loseForms[index].photo,
-                          loseForms[index].name,
-                          loseForms[index].age,
-                          stateColor,
-                          loseForms[index].state,
-                          "تاريخ الفقد: ${loseForms[index].date}",
-                          "loseForm",
-                          loseForms[index].id,
-                          loseForms[index].time,
-                          loseForms[index].description,
-                          loseForms[index].location);
-                    },
-                  );
+                    if (data.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'لا يوجد لديك بلاغات فقد',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      );
+                    } else {
+                      loseForms = data.toList();
+
+                      return ListView.builder(
+                        itemCount: loseForms.length,
+                        itemBuilder: (context, index) {
+                          Color stateColor;
+                          if (loseForms[index].state == "تم العثور") {
+                            stateColor = findColor;
+                          } else {
+                            stateColor = lostColor;
+                          }
+
+                          return formCard(
+                              loseForms[index].photo,
+                              loseForms[index].name,
+                              loseForms[index].age,
+                              stateColor,
+                              loseForms[index].state,
+                              "تاريخ الفقد: ${loseForms[index].date}",
+                              "loseForm",
+                              loseForms[index].id,
+                              loseForms[index].time,
+                              loseForms[index].description,
+                              loseForms[index].location);
+                        },
+                      );
+                    }
+                  }
                 }),
             StreamBuilder<List<findFormModel>>(
                 stream: readFindForms(),
@@ -93,32 +109,48 @@ class _myFormsState extends State<myForms> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    findForms = snapshot.data!.toList();
-                  }
-                  return ListView.builder(
-                    itemCount: findForms.length,
-                    itemBuilder: (context, index) {
-                      Color stateColor;
-                      if (findForms[index].state == "تم العثور") {
-                        stateColor = findColor;
-                      } else {
-                        stateColor = lostColor;
-                      }
+                    final data = snapshot.data!;
 
-                      return formCard(
-                          findForms[index].photo,
-                          findForms[index].name,
-                          findForms[index].age,
-                          stateColor,
-                          findForms[index].state,
-                          "تاريخ العثور: ${findForms[index].date}",
-                          "findForm",
-                          findForms[index].id,
-                          findForms[index].time,
-                          findForms[index].description,
-                          findForms[index].location);
-                    },
-                  );
+                    if (data.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'لا يوجد لديك بلاغات عثور',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      );
+                    } else {
+                      findForms = data.toList();
+
+                      return ListView.builder(
+                        itemCount: findForms.length,
+                        itemBuilder: (context, index) {
+                          Color stateColor;
+                          if (findForms[index].state == "تم العثور") {
+                            stateColor = findColor;
+                          } else {
+                            stateColor = lostColor;
+                          }
+
+                          return formCard(
+                              findForms[index].photo,
+                              findForms[index].name,
+                              findForms[index].age,
+                              stateColor,
+                              findForms[index].state,
+                              "تاريخ العثور: ${findForms[index].date}",
+                              "findForm",
+                              findForms[index].id,
+                              findForms[index].time,
+                              findForms[index].description,
+                              findForms[index].location);
+                        },
+                      );
+                    }
+                  }
                 }),
           ],
         ),
