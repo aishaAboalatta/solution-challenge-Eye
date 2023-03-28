@@ -59,12 +59,14 @@ class _profileState extends State<profile> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => editProfile(
-                                    ImageUrl:
-                                        NetworkImage(userInfo['profilePic']),
-                                    email: userInfo['email'],
-                                    name: userInfo['name'],
-                                    phone: userInfo['phoneNumber'],
-                                    id: userId)));
+                                      ImageUrl:
+                                          NetworkImage(userInfo['profilePic']),
+                                      email: userInfo['email'],
+                                      name: userInfo['name'],
+                                      phone: userInfo['phoneNumber'],
+                                      id: userId,
+                                      loc: userInfo['location'],
+                                    )));
                       },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
@@ -170,6 +172,35 @@ class _profileState extends State<profile> {
                       ),
                       Text(
                         userInfo['email'],
+                        style: const TextStyle(
+                          color: Color(0xff2c4339),
+                          fontSize: 17,
+                          fontFamily: "Almarai",
+                          fontWeight: FontWeight.w300,
+                        ),
+                      )
+                    ],
+                  ),
+
+                  //مسافة
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  //الموقع
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      const Icon(
+                        Icons.location_city,
+                        color: primaryDarkGrean,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        userInfo['location'],
                         style: const TextStyle(
                           color: Color(0xff2c4339),
                           fontSize: 17,

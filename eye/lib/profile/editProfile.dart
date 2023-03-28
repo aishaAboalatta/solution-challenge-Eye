@@ -7,18 +7,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../location/currentLocation.dart';
 import '../widgets/toastMssg.dart';
 import '../widgets/utils/utils.dart';
 
 class editProfile extends StatefulWidget {
-  var ImageUrl, name, phone, email, id;
+  var ImageUrl, name, phone, email, id, loc;
   editProfile(
       {super.key,
       required this.ImageUrl,
       required this.name,
       required this.phone,
       required this.email,
-      required this.id});
+      required this.id,
+      required this.loc});
 
   @override
   State<editProfile> createState() => _editProfileState();
@@ -33,6 +35,7 @@ class _editProfileState extends State<editProfile> {
   TextEditingController nameinput = TextEditingController();
   TextEditingController phoneinput = TextEditingController();
   TextEditingController emailinput = TextEditingController();
+  final locationController = TextEditingController();
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   @override
@@ -41,6 +44,7 @@ class _editProfileState extends State<editProfile> {
     nameinput.text = widget.name;
     phoneinput.text = widget.phone;
     emailinput.text = widget.email;
+    locationController.text = widget.loc;
     super.initState();
   }
 
@@ -167,6 +171,14 @@ class _editProfileState extends State<editProfile> {
                 //الايميل
                 formField(emailinput, "البريد الإلكتروني", Icons.email,
                     TextInputType.emailAddress, validEmail, 40, 1, false),
+                //الموقع
+                locationFeild(
+                    hintText: "اضغط لتعديل الموقع",
+                    icon: Icons.pin_drop_rounded,
+                    inputType: TextInputType.name,
+                    maxLines: 3,
+                    controller: locationController,
+                    context: context),
                 //submit
                 const SizedBox(
                   height: 10,
@@ -380,6 +392,7 @@ class _editProfileState extends State<editProfile> {
         'name': nameinput.text,
         'email': emailinput.text,
         'profilePic': Url,
+        'location': locationController.text
       }).whenComplete(() {
         setState(() {
           complateUpload = true;
