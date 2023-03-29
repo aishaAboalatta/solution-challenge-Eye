@@ -1,3 +1,4 @@
+import 'package:eye/GuideMe.dart';
 import 'package:eye/tracking/track.dart';
 import 'package:eye/widgets/appBar.dart';
 import 'package:eye/home.dart';
@@ -71,7 +72,7 @@ class _navBarState extends State<navBar> {
       const track(),
       const home(),
       const myForms(),
-      const home()
+      const GuideMe()
     ];
   }
 
