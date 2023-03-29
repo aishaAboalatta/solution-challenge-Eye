@@ -1,5 +1,7 @@
+import 'package:eye/notification/matchForm.dart';
 import 'package:eye/widgets/appBar.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class notificationPage extends StatefulWidget {
   const notificationPage({super.key});
@@ -21,10 +23,20 @@ class _notificationPageState extends State<notificationPage> {
         child: SizedBox(
           height: size.height,
           width: size.width,
-          child: Image.asset(
-            alignment: Alignment.topCenter,
-            "assets/notification.png",
-            fit: BoxFit.fitWidth,
+          child: GestureDetector(
+            onTap: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const matchForm(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.slideRight,
+              );
+            },
+            child: Image.asset(
+              alignment: Alignment.topCenter,
+              "assets/notification.png",
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
       ),
