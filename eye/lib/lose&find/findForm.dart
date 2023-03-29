@@ -63,7 +63,7 @@ class _findFormState extends State<findForm> {
         backgroundColor: Colors.white,
         appBar: appBar(
             context: context,
-            title: 'وجدت شخص',
+            title: 'عثرت على شخص',
             icon: Icons.close_rounded,
             dialog: true,
             text: "ستفقد ما قمت بإضافته \n هل أنت متأكد؟",

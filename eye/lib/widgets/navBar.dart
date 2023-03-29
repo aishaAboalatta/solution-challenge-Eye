@@ -324,7 +324,7 @@ Widget reportOptions(context) {
                               fontFamily: "Almarai",
                               height: 1.5),
                           child: Text(
-                            "وجدت شخص",
+                            "عثرت على شخص",
                           ),
                         ),
                         SizedBox(
