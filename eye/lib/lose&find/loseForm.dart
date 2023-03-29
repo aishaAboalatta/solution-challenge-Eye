@@ -115,6 +115,7 @@ class _loseFormState extends State<loseForm> {
                       title: const Text("عدم النشر"),
                       value: "noOne",
                       groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
                       onChanged: (value) {
                         setState(() {
                           shareOptions = value.toString();
@@ -125,6 +126,7 @@ class _loseFormState extends State<loseForm> {
                       title: const Text("نشر للأصدقاء فقط"),
                       value: "onlyFriends",
                       groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
                       onChanged: (value) {
                         setState(() {
                           shareOptions = value.toString();
@@ -135,6 +137,7 @@ class _loseFormState extends State<loseForm> {
                       title: const Text("نشر لجميع مستخدمي التطبيق"),
                       value: "All",
                       groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
                       onChanged: (value) {
                         setState(() {
                           shareOptions = value.toString();
