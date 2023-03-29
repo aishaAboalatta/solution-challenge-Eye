@@ -46,7 +46,20 @@ class _homeState extends State<home> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBarHome(title: userName, context: context, photo: userPhoto),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
+        child: SizedBox(
+          height: size.height,
+          width: size.width,
+          child: Image.asset(
+            alignment: Alignment.topCenter,
+            "assets/home.png",
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+      ),
+
+      /* Center(
         child: GestureDetector(
             onTap: () {
               meth('a10.jpeg', 'a11.jpeg');
@@ -56,21 +69,8 @@ class _homeState extends State<home> {
               width: 30,
               color: Colors.black,
             )),
-        /*
-        child: GestureDetector(
-            onTap: () {
-              final FirebaseAuth auth = FirebaseAuth.instance;
-              final User? user = auth.currentUser;
-              String userId = user!.uid;
-              setUserPhoto(userId);
-              print("---------${userPhoto}");
-            },
-            child: Container(
-              height: 45,
-              width: 45,
-              color: Colors.black,
-            )),*/
-      ),
+  
+      ),*/
     );
   }
 
