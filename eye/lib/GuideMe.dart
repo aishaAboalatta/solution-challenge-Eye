@@ -1,16 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eye/imageDetection/imageDetection.dart';
-import 'package:eye/widgets/appBar.dart';
-import 'package:eye/widgets/appBarHome.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'constants/colors.dart';
-import 'notification/LocalNotificationService.dart';
-import 'notification/notify.dart';
-import 'register/user_information_screen.dart';
 
 class GuideMe extends StatefulWidget {
   const GuideMe({super.key});
@@ -35,6 +25,7 @@ class _GuideMeState extends State<GuideMe> {
         //     icon: Icons.question_mark_rounded,
         //     isBottom: true),
         body: Container(
+          //*ما ضبط معاي الاب بار، يمكن لأنه أجرب من خارج التطبيق، لما يضبط نتحكم في المارجن
           margin: EdgeInsets.only(top: 50),
           child: Center(
             child: Column(
