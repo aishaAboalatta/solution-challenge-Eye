@@ -191,7 +191,7 @@ Widget reportOptions(context) {
             ),
             //العنوان الفرعي
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50.0),
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: SizedBox(
                 height: 25,
                 child: DefaultTextStyle(
@@ -202,7 +202,7 @@ Widget reportOptions(context) {
                       fontWeight: FontWeight.w700,
                       height: 1.5),
                   child: Text(
-                    "بإمكانك الإبلاغ عن فقدان أو إيجاد شخص",
+                    "بإمكانك الإبلاغ عن فقدان أو العثور على شخص",
                   ),
                 ),
               ),
