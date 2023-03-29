@@ -9,20 +9,21 @@ class loseFormModel {
   String location;
   String description;
   String state;
-  List predectedArray;
+  //List predectedArray;
 
-  loseFormModel(
-      {required this.id,
-      required this.userId,
-      required this.name,
-      required this.photo,
-      required this.age,
-      required this.date,
-      required this.time,
-      required this.location,
-      required this.description,
-      required this.state,
-      required this.predectedArray});
+  loseFormModel({
+    required this.id,
+    required this.userId,
+    required this.name,
+    required this.photo,
+    required this.age,
+    required this.date,
+    required this.time,
+    required this.location,
+    required this.description,
+    required this.state,
+    //required this.predectedArray
+  });
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -35,19 +36,20 @@ class loseFormModel {
         "location": location,
         "description": description,
         "state": state,
-        "predectedArray": predectedArray
+        //"predectedArray": predectedArray
       };
 
   static loseFormModel fromJson(Map<String, dynamic> json) => loseFormModel(
-      id: json['id'],
-      userId: json['userId'],
-      name: json['name'],
-      photo: json['photo'],
-      age: json['age'],
-      date: json['date'],
-      time: json['time'],
-      location: json['location'],
-      description: json['description'],
-      state: json["state"],
-      predectedArray: json['predectedArray']);
+        id: json['id'],
+        userId: json['userId'],
+        name: json['name'],
+        photo: json['photo'],
+        age: json['age'],
+        date: json['date'],
+        time: json['time'],
+        location: json['location'],
+        description: json['description'],
+        state: json["state"],
+        //predectedArray: json['predectedArray']
+      );
 }

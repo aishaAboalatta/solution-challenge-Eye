@@ -542,6 +542,7 @@ class _loseFormState extends State<loseForm> {
     return ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
+            /*
             List? array = [
               -0.01702696830034256,
               0.03669794276356697,
@@ -591,9 +592,9 @@ class _loseFormState extends State<loseForm> {
               -0.071443997
             ];
             // List? array = await getPredectedArray(image!.path);
+*/
 
-            print("==========before");
-            createNewInform(array); //array
+            createNewInform(); //array
 
             Future.delayed(const Duration(seconds: 1), () {
               showToast("تم رفع البلاغ بنجاح");
@@ -626,7 +627,8 @@ class _loseFormState extends State<loseForm> {
     return downloadUrl;
   }
 
-  Future createNewInform(List? array) async {
+  Future createNewInform() async {
+    //List? array
     //array
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
@@ -634,17 +636,18 @@ class _loseFormState extends State<loseForm> {
     print("==========start");
     final newForm = FirebaseFirestore.instance.collection('loseForm').doc();
     loseFormModel form = loseFormModel(
-        id: newForm.id,
-        userId: userId,
-        name: nameinput.text,
-        photo: uploadImageUrl,
-        age: num.parse(ageinput.text),
-        date: dateinput.text,
-        time: timeinput.text,
-        location: locController.text,
-        description: descinput.text,
-        state: "لم يتم العثور بعد",
-        predectedArray: array!);
+      id: newForm.id,
+      userId: userId,
+      name: nameinput.text,
+      photo: uploadImageUrl,
+      age: num.parse(ageinput.text),
+      date: dateinput.text,
+      time: timeinput.text,
+      location: locController.text,
+      description: descinput.text,
+      state: "لم يتم العثور بعد",
+      //predectedArray: array!
+    );
     print("==========middle");
     final json = form.toJson();
     await newForm.set(json);
