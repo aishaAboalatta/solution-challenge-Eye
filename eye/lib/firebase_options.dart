@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,31 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBhYGzTrAureNcnrp5ULa1yCkYOIUMc_Mc',
-    appId: '1:321481713488:web:49d9ecbffe2f341fb92e55',
-    messagingSenderId: '321481713488',
-    projectId: 'eye-solution-challenge',
-    authDomain: 'eye-solution-challenge.firebaseapp.com',
-    storageBucket: 'eye-solution-challenge.appspot.com',
-    measurementId: 'G-MBYQW0JYE3',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD1NwkB9dVMtSsP--AJwrxRPkoQlRbI92g',
-    appId: '1:321481713488:android:0334f355bce098ebb92e55',
-    messagingSenderId: '321481713488',
-    projectId: 'eye-solution-challenge',
-    storageBucket: 'eye-solution-challenge.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBE-ngYIL58iqBP4FcHEkXlAr17wQ-uKo0',
-    appId: '1:321481713488:ios:47677e18c38ef21fb92e55',
-    messagingSenderId: '321481713488',
-    projectId: 'eye-solution-challenge',
-    storageBucket: 'eye-solution-challenge.appspot.com',
-    iosClientId: '321481713488-i9p3egb1c36vegtk0kejf0vivmffu6ru.apps.googleusercontent.com',
-    iosBundleId: 'com.example.eye',
+    apiKey: 'AIzaSyBRBpQ6HPmRkDW9UlCcfpSZeDnp4hS664k',
+    appId: '1:679871903365:android:b0b958dcf1cb91c8e11bec',
+    messagingSenderId: '679871903365',
+    projectId: 'eye-project-61706',
+    storageBucket: 'eye-project-61706.appspot.com',
   );
 }

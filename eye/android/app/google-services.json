@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "321481713488",
-    "project_id": "eye-solution-challenge",
-    "storage_bucket": "eye-solution-challenge.appspot.com"
+    "project_number": "679871903365",
+    "project_id": "eye-project-61706",
+    "storage_bucket": "eye-project-61706.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:321481713488:android:0334f355bce098ebb92e55",
+        "mobilesdk_app_id": "1:679871903365:android:b0b958dcf1cb91c8e11bec",
         "android_client_info": {
           "package_name": "com.example.eye"
         }
       },
       "oauth_client": [
         {
-          "client_id": "321481713488-ja6eaf9d8gh9tbvumhlpo1us3ribhge7.apps.googleusercontent.com",
+          "client_id": "679871903365-n89g1m8f38url4h0s91lali5quhps4dv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD1NwkB9dVMtSsP--AJwrxRPkoQlRbI92g"
+          "current_key": "AIzaSyBRBpQ6HPmRkDW9UlCcfpSZeDnp4hS664k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "321481713488-ja6eaf9d8gh9tbvumhlpo1us3ribhge7.apps.googleusercontent.com",
+              "client_id": "679871903365-n89g1m8f38url4h0s91lali5quhps4dv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
