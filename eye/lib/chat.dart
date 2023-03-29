@@ -15,7 +15,7 @@ class _chatState extends State<chat> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(
-          title: "المحادثات", context: context, icon: Icons.arrow_back_ios),
+          title: "المحادثات", context: context, icon: Icons.arrow_back_rounded),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0, right: 5),
         child: Padding(

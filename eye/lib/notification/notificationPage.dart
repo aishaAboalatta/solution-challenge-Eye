@@ -15,15 +15,16 @@ class _notificationPageState extends State<notificationPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(
-          title: "الإشعارات", context: context, icon: Icons.arrow_back_ios),
+          title: "الإشعارات", context: context, icon: Icons.arrow_back_rounded),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0, right: 5),
         child: SizedBox(
           height: size.height,
           width: size.width,
           child: Image.asset(
-            "assets/friends.png",
-            fit: BoxFit.fill,
+            alignment: Alignment.topCenter,
+            "assets/notification.png",
+            fit: BoxFit.fitWidth,
           ),
         ),
       ),
