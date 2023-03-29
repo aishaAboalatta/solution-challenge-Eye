@@ -32,6 +32,7 @@ class _findFormState extends State<findForm> {
   TextEditingController timeinput = TextEditingController();
   TextEditingController descinput = TextEditingController();
   TextEditingController locController = TextEditingController();
+  String? shareOptions;
 
   @override
   void initState() {
@@ -99,6 +100,49 @@ class _findFormState extends State<findForm> {
               //الوصف
               formField(descinput, "وصف تفصيلي", Icons.pin,
                   TextInputType.multiline, validDescri, 200, 3),
+              //
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "خيارات نشر البلاغ",
+                      style: TextStyle(fontSize: 18, color: primaryDarkGrean),
+                    ),
+                    RadioListTile(
+                      title: const Text("عدم النشر"),
+                      value: "noOne",
+                      groupValue: shareOptions,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("نشر للأصدقاء فقط"),
+                      value: "onlyFriends",
+                      groupValue: shareOptions,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("نشر لجميع مستخدمي التطبيق"),
+                      value: "All",
+                      groupValue: shareOptions,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
               submitBttn(),
             ],
           ),
