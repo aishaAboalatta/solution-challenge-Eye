@@ -16,24 +16,18 @@ class _trackState extends State<track> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBarHome(
-          title: "تتبعني",
-          context: context,
-          photo: "no",
-          icon: CupertinoIcons.placemark,
-          isBottom: true),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 15.0, right: 5),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: SizedBox(
-            height: size.height,
-            width: size.width,
-            child: Image.asset(
-              alignment: Alignment.topCenter,
-              "assets/tracking.jpg",
-              fit: BoxFit.fill,
-            ),
-          ),
+        title: "تتبعني",
+        context: context,
+        photo: "no",
+        icon: CupertinoIcons.placemark,
+      ),
+      body: SizedBox(
+        height: size.height,
+        width: size.width,
+        child: Image.asset(
+          alignment: Alignment.topCenter,
+          "assets/tracking.jpg",
+          fit: BoxFit.scaleDown,
         ),
       ),
     );
