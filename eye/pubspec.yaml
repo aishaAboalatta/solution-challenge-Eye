@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  firebase_core: ^2.8.0
+  firebase_auth: ^4.3.0
   google_fonts: ^4.0.3
   persistent_bottom_nav_bar: any
   another_flutter_splash_screen: ^1.1.4
@@ -41,8 +43,8 @@ dependencies:
   provider: ^6.0.5
   country_picker: any
   pinput: ^2.2.31
-  firebase_database: any
-  firebase_storage: any
+  firebase_database: ^10.0.16
+  firebase_storage: ^11.0.16
   cloud_firestore: ^4.4.5
   shared_preferences: ^2.0.18
   fluttertoast: ^8.2.1
@@ -60,18 +62,24 @@ dependencies:
   flutter_local_notifications: any
   rxdart: ^0.27.7
   timezone: ^0.9.1
+  cloud_firestore_platform_interface: ^5.11.5
+  cloud_firestore_web: ^3.3.5
+  collection: ^1.0.0
+  firebase_core_platform_interface: ^4.5.3
+  meta: ^1.3.0
+
 
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.8.0
-  firebase_auth: ^4.3.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
