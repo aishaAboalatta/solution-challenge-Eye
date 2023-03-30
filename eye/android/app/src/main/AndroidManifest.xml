@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eye">
    <application
-        android:label="eye"
+        android:label="عين"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/app_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"

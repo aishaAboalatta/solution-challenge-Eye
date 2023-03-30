@@ -40,6 +40,14 @@ checkSmilirity(List? findArray, service, findDocId) async {
     if (result == "same") {
       createNotification(
           0, "تطابق", "تطابق بلاغ فقدك مع بلاغ عثور", "", service);
+      db
+          .collection("findForm")
+          .doc(findDocId)
+          .update({"state": "تم ايجاد تطابق"});
+      db
+          .collection("loseForm")
+          .doc(loseForm.id)
+          .update({"state": "تم ايجاد تطابق"});
       break;
     }
   }

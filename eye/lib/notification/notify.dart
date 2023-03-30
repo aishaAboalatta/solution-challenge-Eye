@@ -17,8 +17,11 @@ void listenToDB(LocalNotificationService service) {
 
           var findDocId = data["id"];
           var findArray = data["predectedArray"];
+          String state = data['state'];
 
-          checkSmilirity(findArray, service, findDocId); //findArray
+          if (state != "تم ايجاد تطابق") {
+            checkSmilirity(findArray, service, findDocId);
+          }
         }
       }
     }

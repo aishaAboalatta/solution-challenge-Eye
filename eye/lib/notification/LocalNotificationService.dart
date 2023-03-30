@@ -15,9 +15,9 @@ class LocalNotificationService {
 
     //for android
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('@drawable/ic_stat_shopping_cart');
+        AndroidInitializationSettings('app_logo');
 
-    final InitializationSettings settings = InitializationSettings(
+    InitializationSettings settings = const InitializationSettings(
       android: androidInitializationSettings,
     );
 
@@ -35,7 +35,8 @@ class LocalNotificationService {
       importance: Importance.max,
       priority: Priority.max,
       playSound: true,
-      largeIcon: DrawableResourceAndroidBitmap('logo3'),
+      icon: 'app_logo',
+      largeIcon: DrawableResourceAndroidBitmap('app_logo'),
       groupKey: 'com.example.flutter_push_notifications',
       color: Color.fromARGB(255, 26, 96, 91), //color of the small icon
     );
