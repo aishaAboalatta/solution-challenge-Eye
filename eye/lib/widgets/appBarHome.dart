@@ -27,6 +27,7 @@ AppBar appBarHome(
           PersistentNavBarNavigator.pushNewScreen(
             context,
             screen: chat(), //page name here
+            withNavBar: false,
             pageTransitionAnimation: PageTransitionAnimation.slideUp,
           );
           //}
@@ -46,6 +47,7 @@ AppBar appBarHome(
           PersistentNavBarNavigator.pushNewScreen(
             context,
             screen: notificationPage(), //page name here
+            withNavBar: false,
             pageTransitionAnimation: PageTransitionAnimation.slideUp,
           );
           //   }

@@ -28,18 +28,19 @@ class _GuideMeState extends State<GuideMe> {
             icon: Icons.question_mark_rounded,
             isBottom: false),
         body: SingleChildScrollView(
-          //margin: EdgeInsets.only(top: 20),
-
           child: Center(
-            child: Column(
-              children: [
-                guideMeCard("assets/مركز بلاغات.png", "مراكز بلاغات قريبة"),
-                guideMeCard("assets/أرقام تهمك.png", "أرقام تهمك"),
-                guideMeCard("assets/فقدت شخص.png", "فقدت شخص"),
-                guideMeCard("assets/وجدت مفقود.png", "وجدت مفقود"),
-                guideMeCard("assets/أدعية.png", "أدعية لمن فقد شيئًا"),
-                guideMeCard("assets/أرقام تهمك.png", "تواصل معنا"),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Column(
+                children: [
+                  guideMeCard("assets/مركز بلاغات.png", "مراكز بلاغات قريبة"),
+                  guideMeCard("assets/أرقام تهمك.png", "أرقام تهمك"),
+                  guideMeCard("assets/فقدت شخص.png", "فقدت شخص"),
+                  guideMeCard("assets/وجدت مفقود.png", "عثرت على مفقود"),
+                  guideMeCard("assets/أدعية.png", "أدعية لمن فقد شيئًا"),
+                  guideMeCard("assets/تواصل معنا.png", "تواصل معنا"),
+                ],
+              ),
             ),
           ),
         ),
@@ -53,13 +54,14 @@ class _GuideMeState extends State<GuideMe> {
         PersistentNavBarNavigator.pushNewScreen(
           context,
           screen: police(), //page name here
+          withNavBar: false,
           pageTransitionAnimation: PageTransitionAnimation.slideUp,
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         padding: const EdgeInsets.all(10),
-        height: 100,
+        height: 90,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
