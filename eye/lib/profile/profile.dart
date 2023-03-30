@@ -188,6 +188,7 @@ class _profileState extends State<profile> {
                   ),
                   //الموقع
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
                         width: 15,
@@ -199,13 +200,17 @@ class _profileState extends State<profile> {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        userInfo['location'],
-                        style: const TextStyle(
-                          color: Color(0xff2c4339),
-                          fontSize: 17,
-                          fontFamily: "Almarai",
-                          fontWeight: FontWeight.w300,
+                      Expanded(
+                        child: Text(
+                          userInfo['location'],
+                          softWrap: true,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            color: Color(0xff2c4339),
+                            fontSize: 17,
+                            fontFamily: "Almarai",
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       )
                     ],
