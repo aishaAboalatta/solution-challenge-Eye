@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eye/notification/findFormsSame.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import './LocalNotificationService.dart';
 
-/*
 void listenToDB(LocalNotificationService service) {
   print("the notification form firestore method was called");
 
@@ -11,34 +9,22 @@ void listenToDB(LocalNotificationService service) {
       FirebaseFirestore.instance.collection('findForm');
 
   reference.snapshots().listen((querySnapshot) {
-    querySnapshot.docChanges.forEach((change) {
+    for (var change in querySnapshot.docChanges) {
       if (change.type == DocumentChangeType.added) {
         for (var index = 0; index < querySnapshot.size; index++) {
-          //current user id
-          final FirebaseAuth auth = FirebaseAuth.instance;
-          final User? user = auth.currentUser;
-          String thisUserId = user!.uid;
-
           //documend that added on find
           var data = querySnapshot.docs.elementAt(index).data() as Map;
 
           var findDocId = data["id"];
           var findArray = data["predectedArray"];
 
-          checkSmilirity(); //findArray
-
-          createNotification(
-              0,
-              "تطابق البلاغ",
-              "وصلك طلب جديد أيها الحِرفيّ الصغير! انقر لعرض الطلبات ",
-              "",
-              service);
+          checkSmilirity(findArray, service, findDocId); //findArray
         }
       }
-    });
+    }
   });
 }
-*/
+
 //Create notification=================================================
 void createNotification(int id, String title, String body, String payload,
     LocalNotificationService service) async {

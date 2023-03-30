@@ -9,15 +9,15 @@ class MLService {
   late Interpreter interpreter;
   List? predictedArray;
 
-  compare(a1, a2) async {
+  Future<String> compare(List<dynamic> a1, List<dynamic> a2) async {
     int minDist = 1000;
     double threshold = 0.52;
     var dist = euclideanDistance(a1, a2);
     print("==========dist:${dist}");
     if (dist <= threshold && dist < minDist) {
-      print("==========same");
+      return "same";
     } else {
-      print("==========not same");
+      return "notSame";
     }
   }
 

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class loseFormModel {
   String id;
   String userId;
@@ -23,6 +25,20 @@ class loseFormModel {
       required this.description,
       required this.state,
       required this.predectedArray});
+
+  loseFormModel.fromSnapshot(
+      QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+      : id = snapshot['id'],
+        userId = snapshot['userId'],
+        name = snapshot['name'],
+        photo = snapshot['photo'],
+        age = snapshot['age'],
+        date = snapshot['date'],
+        time = snapshot['time'],
+        location = snapshot['location'],
+        description = snapshot['description'],
+        state = snapshot["state"],
+        predectedArray = snapshot['predectedArray'];
 
   Map<String, dynamic> toJson() => {
         "id": id,
