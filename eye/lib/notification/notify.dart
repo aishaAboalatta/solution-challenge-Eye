@@ -10,8 +10,10 @@ void listenToDB(LocalNotificationService service) {
 
   reference.snapshots().listen((querySnapshot) {
     for (var change in querySnapshot.docChanges) {
+      print("loop1===============");
       if (change.type == DocumentChangeType.added) {
         for (var index = 0; index < querySnapshot.size; index++) {
+          print("loop2===============${querySnapshot.size}");
           //documend that added on find
           var data = querySnapshot.docs.elementAt(index).data() as Map;
 
@@ -21,6 +23,7 @@ void listenToDB(LocalNotificationService service) {
 
           if (state != "تم ايجاد تطابق") {
             checkSmilirity(findArray, service, findDocId);
+            print("check happen===============");
           }
         }
       }
