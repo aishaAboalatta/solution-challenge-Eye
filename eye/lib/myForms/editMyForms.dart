@@ -43,6 +43,7 @@ class _editMyFormsState extends State<editMyForms> {
   TextEditingController timeinput = TextEditingController();
   TextEditingController descinput = TextEditingController();
   TextEditingController locController = TextEditingController();
+  String? shareOptions;
 
   @override
   void initState() {
@@ -111,6 +112,52 @@ class _editMyFormsState extends State<editMyForms> {
               //ناقص الموقع
               formField(descinput, "وصف تفصيلي", Icons.pin,
                   TextInputType.multiline, validDescri, 200, 3),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "خيارات نشر البلاغ",
+                      style: TextStyle(fontSize: 18, color: primaryDarkGrean),
+                    ),
+                    RadioListTile(
+                      title: const Text("عدم النشر"),
+                      value: "noOne",
+                      groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("نشر للأصدقاء فقط"),
+                      value: "onlyFriends",
+                      groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("نشر لجميع مستخدمي التطبيق"),
+                      value: "All",
+                      groupValue: shareOptions,
+                      activeColor: primaryDarkGrean,
+                      onChanged: (value) {
+                        setState(() {
+                          shareOptions = value.toString();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
               submitBttn(),
             ],
           ),
