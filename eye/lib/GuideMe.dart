@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:eye/police.dart';
+import 'package:eye/widgets/appBarHome.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'constants/colors.dart';
 
 class GuideMe extends StatefulWidget {
@@ -18,23 +21,24 @@ class _GuideMeState extends State<GuideMe> {
       initialIndex: 0,
       child: Scaffold(
         backgroundColor: Colors.white,
-        // appBar: appBarHome(
-        //     title: "أرشدني",
-        //     context: context,
-        //     photo: "no",
-        //     icon: Icons.question_mark_rounded,
-        //     isBottom: true),
-        body: Container(
-          //*ما ضبط معاي الاب بار، يمكن لأنه أجرب من خارج التطبيق، لما يضبط نتحكم في المارجن
-          margin: EdgeInsets.only(top: 50),
+        appBar: appBarHome(
+            title: "أرشدني",
+            context: context,
+            photo: "no",
+            icon: Icons.question_mark_rounded,
+            isBottom: false),
+        body: SingleChildScrollView(
+          //margin: EdgeInsets.only(top: 20),
+
           child: Center(
             child: Column(
               children: [
-                guideMeCard("assets/مركز بلاغات.png", "مركز بلاغات قريبة"),
+                guideMeCard("assets/مركز بلاغات.png", "مراكز بلاغات قريبة"),
                 guideMeCard("assets/أرقام تهمك.png", "أرقام تهمك"),
                 guideMeCard("assets/فقدت شخص.png", "فقدت شخص"),
                 guideMeCard("assets/وجدت مفقود.png", "وجدت مفقود"),
                 guideMeCard("assets/أدعية.png", "أدعية لمن فقد شيئًا"),
+                guideMeCard("assets/أرقام تهمك.png", "تواصل معنا"),
               ],
             ),
           ),
@@ -45,7 +49,13 @@ class _GuideMeState extends State<GuideMe> {
 
   GestureDetector guideMeCard(String photo, String title) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: police(), //page name here
+          pageTransitionAnimation: PageTransitionAnimation.slideUp,
+        );
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         padding: const EdgeInsets.all(10),

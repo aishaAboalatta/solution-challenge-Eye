@@ -23,13 +23,13 @@ AppBar appBarHome(
           ),
         ),
         onTap: () {
-          if (photo != "no") {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: chat(), //page name here
-              pageTransitionAnimation: PageTransitionAnimation.slideUp,
-            );
-          }
+          //  if (photo != "no") {
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: chat(), //page name here
+            pageTransitionAnimation: PageTransitionAnimation.slideUp,
+          );
+          //}
         },
       ),
       InkWell(
@@ -42,13 +42,13 @@ AppBar appBarHome(
           ),
         ),
         onTap: () {
-          if (photo != "no") {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: notificationPage(), //page name here
-              pageTransitionAnimation: PageTransitionAnimation.slideUp,
-            );
-          }
+          // if (photo != "no") {
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: notificationPage(), //page name here
+            pageTransitionAnimation: PageTransitionAnimation.slideUp,
+          );
+          //   }
         },
       ),
       const SizedBox(
@@ -122,7 +122,7 @@ AppBar appBarHome(
                 text: "فقدت",
               ),
               Tab(
-                text: "وجدت",
+                text: "عثرت",
               ),
             ],
           )
