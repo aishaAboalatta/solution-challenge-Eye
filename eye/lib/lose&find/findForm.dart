@@ -592,7 +592,7 @@ class _findFormState extends State<findForm> {
         time: timeinput.text,
         location: locController.text,
         description: descinput.text,
-        state: "لم يتم العثور بعد",
+        state: "لم يتم ايجاد تطابق بعد",
         predectedArray: array!);
 
     final json = form.toJson();
