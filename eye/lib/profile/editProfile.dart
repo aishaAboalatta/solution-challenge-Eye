@@ -172,13 +172,16 @@ class _editProfileState extends State<editProfile> {
                 formField(emailinput, "البريد الإلكتروني", Icons.email,
                     TextInputType.emailAddress, validEmail, 40, 1, false),
                 //الموقع
-                locationFeild(
-                    hintText: "اضغط لتعديل الموقع",
-                    icon: Icons.pin_drop_rounded,
-                    inputType: TextInputType.name,
-                    maxLines: 3,
-                    controller: locationController,
-                    context: context),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: locationFeild(
+                      hintText: "اضغط لتعديل الموقع",
+                      icon: Icons.pin_drop_rounded,
+                      inputType: TextInputType.name,
+                      maxLines: 3,
+                      controller: locationController,
+                      context: context),
+                ),
                 //submit
                 const SizedBox(
                   height: 10,
@@ -345,6 +348,7 @@ class _editProfileState extends State<editProfile> {
               userUpdated.update({
                 'name': nameinput.text,
                 'email': emailinput.text,
+                'location': locationController.text
               });
             }
             if (complateUpload) {
