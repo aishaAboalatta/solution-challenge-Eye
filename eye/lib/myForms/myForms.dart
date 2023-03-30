@@ -77,7 +77,7 @@ class _myFormsState extends State<myForms> {
                         itemCount: loseForms.length,
                         itemBuilder: (context, index) {
                           Color stateColor;
-                          if (loseForms[index].state == "تم العثور") {
+                          if (loseForms[index].state == "تم ايجاد تطابق") {
                             stateColor = findColor;
                           } else {
                             stateColor = lostColor;
@@ -129,7 +129,7 @@ class _myFormsState extends State<myForms> {
                         itemCount: findForms.length,
                         itemBuilder: (context, index) {
                           Color stateColor;
-                          if (findForms[index].state == "تم العثور") {
+                          if (findForms[index].state == "تم ايجاد تطابق") {
                             stateColor = findColor;
                           } else {
                             stateColor = lostColor;
