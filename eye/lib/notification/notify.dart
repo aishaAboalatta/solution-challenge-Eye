@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eye/notification/findFormsSame.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './LocalNotificationService.dart';
 
 void listenToDB(LocalNotificationService service) {
@@ -16,12 +17,16 @@ void listenToDB(LocalNotificationService service) {
           print("loop2===============${querySnapshot.size}");
           //documend that added on find
           var data = querySnapshot.docs.elementAt(index).data() as Map;
+          final FirebaseAuth auth = FirebaseAuth.instance;
+          final User? user = auth.currentUser;
+          String thisOwnerId = user!.uid;
 
           var findDocId = data["id"];
           var findArray = data["predectedArray"];
           String state = data['state'];
+          String userID = data['userId'];
 
-          if (state != "تم ايجاد تطابق") {
+          if (state != "تم ايجاد تطابق" || thisOwnerId != userID) {
             checkSmilirity(findArray, service, findDocId);
             print("check happen===============");
           }
