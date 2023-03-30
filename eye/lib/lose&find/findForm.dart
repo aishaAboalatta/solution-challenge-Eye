@@ -541,8 +541,8 @@ class _findFormState extends State<findForm> {
     return ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            //List? array = await getPredectedArray(image!.path);
-            await createNewInform(); //array
+            List? array = await getPredectedArray(image!.path);
+            await createNewInform(array);
 
             Future.delayed(const Duration(seconds: 1), () {
               showToast("تم رفع البلاغ بنجاح");
@@ -575,8 +575,7 @@ class _findFormState extends State<findForm> {
     return downloadUrl;
   }
 
-  Future createNewInform() async {
-    //List? array
+  Future createNewInform(List? array) async {
     //array
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
@@ -584,18 +583,17 @@ class _findFormState extends State<findForm> {
 
     final newForm = FirebaseFirestore.instance.collection('findForm').doc();
     findFormModel form = findFormModel(
-      id: newForm.id,
-      userId: userId,
-      name: nameinput.text,
-      photo: uploadImageUrl,
-      age: num.parse(ageinput.text),
-      date: dateinput.text,
-      time: timeinput.text,
-      location: locController.text,
-      description: descinput.text,
-      state: "لم يتم العثور بعد",
-      //predectedArray: array!
-    );
+        id: newForm.id,
+        userId: userId,
+        name: nameinput.text,
+        photo: uploadImageUrl,
+        age: num.parse(ageinput.text),
+        date: dateinput.text,
+        time: timeinput.text,
+        location: locController.text,
+        description: descinput.text,
+        state: "لم يتم العثور بعد",
+        predectedArray: array!);
 
     final json = form.toJson();
     await newForm.set(json);
