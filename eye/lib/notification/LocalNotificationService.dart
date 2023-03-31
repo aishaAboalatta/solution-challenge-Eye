@@ -15,7 +15,7 @@ class LocalNotificationService {
 
     //for android
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('app_logo');
+        AndroidInitializationSettings('eye');
 
     InitializationSettings settings = const InitializationSettings(
       android: androidInitializationSettings,
@@ -35,7 +35,7 @@ class LocalNotificationService {
       importance: Importance.max,
       priority: Priority.max,
       playSound: true,
-      icon: 'app_logo',
+      icon: 'eye',
       //largeIcon: DrawableResourceAndroidBitmap('app_logo'),
       groupKey: 'com.example.flutter_push_notifications',
       color: Color.fromARGB(255, 26, 96, 91), //color of the small icon
