@@ -1,16 +1,17 @@
-# eye
+# Eye Application
+This is a Flutter project, devolped by Egyption students as a participance in the Solution Challenge.
+## About The Application
 
-A new Flutter project.
+This project is in Arabic language aims to connect missing people, their families, and people who find them. Bringing them together in one place so, they can easily find each other and get in touch.      
 
-## Getting Started
+It Use computer vision, to perform face recognition and compares faces to find lost and found matches forms.  
 
-This project is a starting point for a Flutter application.
+It is also provide a way to track someone to reduce lost cases.
 
-A few resources to get you started if this is your first Flutter project:
+- [For Demo & explaination *Click Here*](https://docs.flutter.dev/get-started/codelab)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Guidance On How To Run The Application
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Git the project repository.
+- Open it on VS Code or Android Studio.
+- Run the main.dart on Android Device or Emulator.
