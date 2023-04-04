@@ -15,4 +15,4 @@ It is also provide a way to track someone to reduce lost cases.
 
 - Git the project repository.
 - Open it on VS Code or Android Studio.
-- Run the main.dart on Android Device or Emulator.
+- Run the eye/lib/main.dart on Android Device or Emulator.
